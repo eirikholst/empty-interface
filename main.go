@@ -1,19 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"errors"
+)
 
 func main() {
-	var i interface{}
-
-	describe(i)
-
-	i = 42
-	describe(i)
-
-	i = "hello"
-	describe(i)
+	s, err := myFunc()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(s)
 }
 
-func describe(i interface{}) {
-	fmt.Printf("(%v, %T)\n", i, i)
+func myFunc() (string, error) {
+	if rand.Float64() > 0.5 {
+		return "Success", nil
+	}
+	return "Fail", errors.New("super serious error")
 }
